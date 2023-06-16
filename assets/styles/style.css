@@ -1,0 +1,95 @@
+* {
+    box-sizing: border-box;
+  }
+
+body {
+    height: 100vh;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    background-color: skyblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+header {
+    font-size: 8vmin;
+    font-weight: bold;
+    letter-spacing: 1vmin;
+}
+
+h1 {
+    font-size: 2vmin;
+    letter-spacing: 1vmin;
+    margin: 0;
+}
+
+.categories {
+    display: grid;
+    grid-gap: 1vmin;
+    grid-template-columns: repeat(3, 30vmin);
+    grid-template-rows: repeat(3, 5vmin);
+    padding: 2vmin;
+    justify-content: center;
+}
+
+.categoryBtn {
+    padding: 1vmin;
+    border-radius: 1.75vmin;
+}
+
+.gameContainer {
+    display: grid;
+    justify-content: center;
+    gap: 2.5vmin;
+    padding: 1.5vmin;
+    grid-template-areas: 
+    "categoryItems separator matchingItems"
+    ". . footer";
+}
+
+.categoryItems {
+    grid-area: categoryItems;
+    display: grid;
+    grid-gap: 1vmin;
+    grid-template-columns: repeat(2, 8vmin);
+    grid-template-rows: repeat(5, 8vmin);
+}
+
+.itemBtn {
+    padding: 1vmin;
+    border-radius: 2.5vmin;
+}
+
+.separator {
+    grid-area: separator;
+    border-left: 0.4vmin solid black;
+    height: 56vmin;
+}
+
+.matchingItems {
+    grid-area: matchingItems;
+    display: grid;
+    grid-gap: 1vmin;
+    grid-template-columns: repeat(3, 18vmin);
+    grid-template-rows: repeat(3, 18vmin);
+}
+
+.matchingBtn {
+    padding: 1vmin;
+    border-radius: 5vmin;
+}
+
+.footer {
+    grid-area: footer;
+    margin: 0 0 0 auto;
+}
+
+.resetBtn {
+    padding: 1vmin 5vmin;
+    border-radius: 1vmin;
+    font-size: 2vmin;
+    font-weight: bold;
+    background-color: lightcoral;
+}
