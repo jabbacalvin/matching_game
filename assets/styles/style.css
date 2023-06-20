@@ -34,9 +34,17 @@ h1 {
     justify-content: center;
 }
 
-.categoryBtn {
+.categoryBtns {
     padding: 1vmin;
     border-radius: 1.75vmin;
+    font-size: 1.75vmin;
+}
+.categoryBtns:hover, :focus {
+    font-size: 2vmin;
+    font-weight: bold;
+}
+.categoryBtns:focus {
+    background-color: aquamarine;
 }
 
 .gameContainer {
@@ -57,9 +65,10 @@ h1 {
     grid-template-rows: repeat(5, 8vmin);
 }
 
-.itemBtn {
+.itemBtns {
     padding: 1vmin;
     border-radius: 2.5vmin;
+    background-size: cover;
 }
 
 .separator {
@@ -76,9 +85,10 @@ h1 {
     grid-template-rows: repeat(3, 18vmin);
 }
 
-.matchingBtn {
+.matchingBtns {
     padding: 1vmin;
     border-radius: 5vmin;
+    background-size: cover;
 }
 
 .footer {
