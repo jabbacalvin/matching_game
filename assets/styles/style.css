@@ -39,11 +39,13 @@ h1 {
     border-radius: 1.75vmin;
     font-size: 1.75vmin;
 }
-.categoryBtns:hover, :focus {
+.categoryBtns:hover {
     font-size: 2vmin;
     font-weight: bold;
 }
-.categoryBtns:focus {
+.focusCategory {
+    font-size: 2vmin;
+    font-weight: bold;
     background-color: aquamarine;
 }
 
@@ -61,13 +63,13 @@ h1 {
     grid-area: categoryItems;
     display: grid;
     grid-gap: 1vmin;
-    grid-template-columns: repeat(2, 8vmin);
-    grid-template-rows: repeat(5, 8vmin);
+    grid-template-columns: repeat(2, 10vmin);
+    grid-template-rows: repeat(5, 10vmin);
 }
 
 .itemBtns {
     padding: 1vmin;
-    border-radius: 2.5vmin;
+    border-radius: 3vmin;
     background-size: cover;
 }
 
@@ -85,10 +87,14 @@ h1 {
     grid-template-rows: repeat(3, 18vmin);
 }
 
-.matchingBtns {
+.matchingItemBtns {
     padding: 1vmin;
     border-radius: 5vmin;
     background-size: cover;
+}
+
+.focusMatches {
+    background-color: #FAFFBD;
 }
 
 .footer {
