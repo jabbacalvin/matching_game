@@ -107,11 +107,10 @@ class MatchingGame {
         });
     }
     compareValues() {      
-        this.itemBtnValue === this.matchingItemBtnValue ? console.log(true) : console.log(false);
-        this.matchingItemBtnValue === this.itemBtnValue ? console.log(true) : console.log(false);
+        this.itemBtnValue === this.matchingItemBtnValue && this.matchingItemBtnValue === this.itemBtnValue ? console.log(true) : console.log(false);
     }
     play() {
-
+        
     }
     render() {
         this.displayClick(this.categoryItemsWrapperEl);
