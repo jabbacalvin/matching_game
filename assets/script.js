@@ -17,9 +17,6 @@ gameContainerWrapperEl.addEventListener('click', (e) => {
 
 resetBtn.addEventListener('click', (e) => {
     resetGame();
-    resetCategories(categoryBtns, categoryWrapperEl);
-    initializeOptions(itemBtns);
-    initializeOptions(matchingItemBtns);
 });
 
 class Categories {
@@ -39,6 +36,7 @@ class Categories {
         this.render();
         this.domWrapperEl = domWrapperEl;
         this.domWrapperEl.addEventListener('click', (e) => {
+            resetGame();
             if (e.target.tagName.toLowerCase() === 'button') {
                 this.category = e.target.innerText.toLowerCase();
                 categoryBtns.forEach(e => e.classList.remove('focusCategory'));
@@ -174,7 +172,6 @@ class MatchingGame {
                             if (e.classList.contains('focusMatches')) {
                                 e.classList.remove('focusMatches');
                                 e.classList.remove('focusMatchesCorrect');
-                                console.log("triggered add focus wrong to everything");
 
                                 e.classList.add('focusMatchesWrong');
                             }
@@ -230,5 +227,8 @@ function initializeOptions(bottons, category) {
 }
 
 function resetGame() {
+    resetCategories(categoryBtns, categoryWrapperEl);
+    initializeOptions(itemBtns);
+    initializeOptions(matchingItemBtns);
     game.reset();
 }
