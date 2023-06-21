@@ -92,8 +92,24 @@ class MatchingGame {
     displayClick(domWrapperEl) {
         domWrapperEl.addEventListener('click', (e) => {
             if (e.target.tagName.toLowerCase() === 'button' && e.target.hasAttribute('data-id')) {
+                const domWrapperElName = domWrapperEl.classList.value;
                 const listArray = [...domWrapperEl.children];
-                listArray.forEach(e => e.classList.remove('focusMatches'));
+                
+                let oppositeDomWrapperEl = null;
+                let oppositeDomWrapperElName = null;                
+                let oppositeListArray = null;
+
+                if (e.target.parentNode.classList.contains('categoryItems')) {
+                    oppositeDomWrapperEl = e.target.closest('.gameContainer').querySelector('.matchingItems');
+                    oppositeListArray = [...oppositeDomWrapperEl.children];
+                    oppositeDomWrapperElName = oppositeDomWrapperEl.classList.value;
+                } else {
+                    oppositeDomWrapperEl = e.target.closest('.gameContainer').querySelector('.categoryItems');
+                    oppositeListArray = [...oppositeDomWrapperEl.children];
+                    oppositeDomWrapperElName = oppositeDomWrapperEl.classList.value;
+                }
+
+                listArray.forEach(e => e.classList.remove('focusMatches', 'focusMatchesWrong'));
                 e.target.classList.toggle('focusMatches');
 
                 const dataId = e.target.getAttribute('data-id');
@@ -103,14 +119,63 @@ class MatchingGame {
                 } else {
                     this.matchingItemBtnValue = dataId;
                 }
+
+                if(this.itemBtnValue !== null && this.matchingItemBtnValue !== null) {
+                    if(this.compareValues()) {
+                        this.itemBtnValue = null;
+                        this.matchingItemBtnValue = null;
+                        listArray.forEach(e => e.classList.remove('focusMatchesCorrect'));
+                        e.target.classList.toggle('focusMatchesCorrect');
+
+                        oppositeListArray.forEach(e => {
+                            if (e.classList.contains('focusMatches') || e.classList.contains('focusMatchesWrong')) {
+                                e.classList.remove('focusMatches');
+                                e.classList.remove('focusMatchesWrong');
+                                e.classList.toggle('focusMatchesCorrect');
+                            }
+                        });
+                        
+                        if (domWrapperElName === "categoryItems") {
+                            listArray.forEach(e => {
+                                if (e.classList.contains('focusMatchesCorrect')) {
+                                    e.style.display = "none";
+                                    e.classList.remove('focusMatchesCorrect');
+                                }
+                            });
+                        } else if (oppositeDomWrapperElName === "categoryItems") {
+                            oppositeListArray.forEach(e => {
+                                if (e.classList.contains('focusMatchesCorrect')) {
+                                    e.style.display = "none";
+                                    e.classList.remove('focusMatchesCorrect');
+                                }
+                            });
+                        }
+                    } else {
+                        listArray.forEach(e => e.classList.remove('focusMatchesWrong'));
+                        e.target.classList.toggle('focusMatchesWrong');
+                        
+                        oppositeListArray.forEach(e => {
+                            if (e.classList.contains('focusMatches') || e.classList.contains('focusMatchesCorrect')) {
+                                e.classList.remove('focusMatches');
+                                e.classList.remove('focusMatchesCorrect');
+                                e.classList.toggle('focusMatchesWrong');
+                            }
+                        });
+                    }
+                }
             }
         });
     }
     compareValues() {      
-        this.itemBtnValue === this.matchingItemBtnValue && this.matchingItemBtnValue === this.itemBtnValue ? console.log(true) : console.log(false);
+        if (this.itemBtnValue === this.matchingItemBtnValue 
+            && this.matchingItemBtnValue === this.itemBtnValue) {
+            return true;
+        } else {
+            return false;
+        }
     }
     play() {
-        
+
     }
     render() {
         this.displayClick(this.categoryItemsWrapperEl);
