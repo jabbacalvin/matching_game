@@ -172,8 +172,15 @@ class MatchingGame {
                             if (e.classList.contains('focusMatches')) {
                                 e.classList.remove('focusMatches');
                                 e.classList.remove('focusMatchesCorrect');
-
+                                
                                 e.classList.add('focusMatchesWrong');
+                            }
+
+                            if (e.classList.contains('focusMatchesWrong')) {
+                                e.classList.remove('focusMatchesWrong');
+                                setTimeout(() => {
+                                    e.classList.add('focusMatchesWrong');
+                                }); 
                             }
                         });
                     }
