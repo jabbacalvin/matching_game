@@ -29,7 +29,7 @@ class Categories {
         '2': 'COLORS',
         '3': 'SHAPES',
         '4': 'ANIMALS',
-        '5': 'CARS',
+        '5': 'TRANSPORTATIONS',
         '6': 'BABY SHARK',
         '7': 'PINKFONG WONDERSTAR',
         '8': 'ELMO & FRIENDS'
@@ -171,9 +171,11 @@ class MatchingGame {
                         e.target.classList.add('focusMatchesWrong');
                         
                         oppositeListArray.forEach(e => {
-                            if (e.classList.contains('focusMatches') || e.classList.contains('focusMatchesCorrect')) {
+                            if (e.classList.contains('focusMatches')) {
                                 e.classList.remove('focusMatches');
                                 e.classList.remove('focusMatchesCorrect');
+                                console.log("triggered add focus wrong to everything");
+
                                 e.classList.add('focusMatchesWrong');
                             }
                         });
