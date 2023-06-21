@@ -16,7 +16,10 @@ gameContainerWrapperEl.addEventListener('click', (e) => {
 });
 
 resetBtn.addEventListener('click', (e) => {
-    initializeGame();
+    resetGame();
+    resetCategories(categoryBtns, categoryWrapperEl);
+    initializeOptions(itemBtns);
+    initializeOptions(matchingItemBtns);
 });
 
 class Categories {
@@ -46,6 +49,9 @@ class Categories {
             }
         });
     }
+    reset() {
+        categoryBtns.forEach(e => e.classList.remove('focusCategory'));
+    }
     render() {
         this.domElements.forEach((element, index) => {
             element.innerText = Categories.categoriesLookup[index];
@@ -73,11 +79,18 @@ class Options {
         }        
         return array;
     }
+    reset() {
+        const category = null;
+        this.domElements.forEach((element, index) => {
+            element.style.backgroundImage = "";
+            element.removeAttribute('data-id');
+        });
+    }
     render() {
         const randomizedArr = this.randomize();
         const category = this.category;
         this.domElements.forEach((element, index) => {
-            element.style.backgroundImage = `url("assets/images/${category}/${randomizedArr[index]}.png")`
+            element.style.backgroundImage = `url("assets/images/${category}/${randomizedArr[index]}.png")`;
             element.setAttribute('data-id', randomizedArr[index]);
         });
     }
@@ -177,7 +190,12 @@ class MatchingGame {
             return false;
         }
     }
-    play() {
+    reset() {
+        const categoryItemsArray = [...this.categoryItemsWrapperEl.children];
+        categoryItemsArray.forEach(e => e.classList.remove('focusMatches', 'focusMatchesWrong', 'focusMatchesCorrect'));
+        categoryItemsArray.forEach(e => e.style.display = "inline-block");
+        const matchingItemsArray = [...this.matchingItemsWrapperEl.children];
+        matchingItemsArray.forEach(e => e.classList.remove('focusMatches', 'focusMatchesWrong', 'focusMatchesCorrect'));
 
     }
     render() {
@@ -197,6 +215,18 @@ function initializeGame() {
     game = new MatchingGame(categoryItemsWrapperEl, matchingItemsWrapperEl);
 }
 
+function resetCategories(buttons, domWrapperEl) {
+    new Categories(buttons, domWrapperEl).reset();
+}
+
 function initializeOptions(bottons, category) {
-    new Options(bottons, category);
+    if (category != null) {
+        new Options(bottons, category);
+    } else {
+        new Options(bottons, category).reset();
+    }
+}
+
+function resetGame() {
+    game.reset();
 }
