@@ -15,6 +15,10 @@ gameContainerWrapperEl.addEventListener('click', (e) => {
     }
 });
 
+resetBtn.addEventListener('click', (e) => {
+    initializeGame();
+});
+
 class Categories {
     static categoriesLookup = {
         '0': 'NUMBERS',
@@ -34,12 +38,11 @@ class Categories {
         this.domWrapperEl.addEventListener('click', (e) => {
             if (e.target.tagName.toLowerCase() === 'button') {
                 this.category = e.target.innerText.toLowerCase();
-                
                 categoryBtns.forEach(e => e.classList.remove('focusCategory'));
                 e.target.classList.toggle('focusCategory');
 
-                new Options(itemBtns, this.category);
-                new Options(matchingItemBtns, this.category);
+                initializeOptions(itemBtns, this.category);
+                initializeOptions(matchingItemBtns, this.category);
             }
         });
     }
@@ -110,7 +113,7 @@ class MatchingGame {
                 }
 
                 listArray.forEach(e => e.classList.remove('focusMatches', 'focusMatchesWrong'));
-                e.target.classList.toggle('focusMatches');
+                e.target.classList.add('focusMatches');
 
                 const dataId = e.target.getAttribute('data-id');
 
@@ -124,14 +127,14 @@ class MatchingGame {
                     if(this.compareValues()) {
                         this.itemBtnValue = null;
                         this.matchingItemBtnValue = null;
-                        listArray.forEach(e => e.classList.remove('focusMatchesCorrect'));
-                        e.target.classList.toggle('focusMatchesCorrect');
+                        e.target.classList.remove('focusMatches');
+                        e.target.classList.add('focusMatchesCorrect');
 
                         oppositeListArray.forEach(e => {
                             if (e.classList.contains('focusMatches') || e.classList.contains('focusMatchesWrong')) {
                                 e.classList.remove('focusMatches');
                                 e.classList.remove('focusMatchesWrong');
-                                e.classList.toggle('focusMatchesCorrect');
+                                e.classList.add('focusMatchesCorrect');
                             }
                         });
                         
@@ -152,13 +155,13 @@ class MatchingGame {
                         }
                     } else {
                         listArray.forEach(e => e.classList.remove('focusMatchesWrong'));
-                        e.target.classList.toggle('focusMatchesWrong');
+                        e.target.classList.add('focusMatchesWrong');
                         
                         oppositeListArray.forEach(e => {
                             if (e.classList.contains('focusMatches') || e.classList.contains('focusMatchesCorrect')) {
                                 e.classList.remove('focusMatches');
                                 e.classList.remove('focusMatchesCorrect');
-                                e.classList.toggle('focusMatchesWrong');
+                                e.classList.add('focusMatchesWrong');
                             }
                         });
                     }
@@ -187,9 +190,13 @@ categoryItemsWrapperEl.addEventListener('click', (e) => {
 
 })
 
-initialize();
+initializeGame();
 
-function initialize() {
+function initializeGame() {
     const categories = new Categories(categoryBtns, categoryWrapperEl);
     game = new MatchingGame(categoryItemsWrapperEl, matchingItemsWrapperEl);
+}
+
+function initializeOptions(bottons, category) {
+    new Options(bottons, category);
 }
