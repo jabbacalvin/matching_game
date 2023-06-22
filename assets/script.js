@@ -5,15 +5,18 @@ const category = document.querySelectorAll('.category');
 const gameContainerWrapperEl = document.querySelector('.gameContainer');
 const categoryItemsWrapperEl = document.querySelector('.categoryItems');
 const categoryItem = document.querySelectorAll('.categoryItem');
+let categoryItemImage = null;
 const matchingItemsWrapperEl = document.querySelector('.matchingItems');
 const matchingItem = document.querySelectorAll('.matchingItem');
 const resetBtn = document.querySelector('.resetBtn');
 
-gameContainerWrapperEl.addEventListener('click', (e) => {
-    if (e.target.tagName.toLowerCase() === 'button') {
-        game.compareValues();
-    }
-});
+// gameContainerWrapperEl.addEventListener('click', (e) => {
+//     if (e.target.tagName.toLowerCase() === 'div') {
+//         game.compareValues();
+//     }
+// });
+
+
 
 resetBtn.addEventListener('click', (e) => {
     resetGame();
@@ -36,8 +39,8 @@ class Categories {
         this.render();
         this.domWrapperEl = domWrapperEl;
         this.domWrapperEl.addEventListener('click', (e) => {
-            resetGame();
             if (e.target.tagName.toLowerCase() === 'button') {
+                resetGame();
                 this.category = e.target.innerText.toLowerCase();
                 category.forEach(e => e.classList.remove('focusCategory'));
                 e.target.classList.toggle('focusCategory');
@@ -79,16 +82,33 @@ class Options {
     }
     reset() {
         const category = null;
-        this.domElements.forEach((element, index) => {
-            element.style.backgroundImage = "";
-            element.removeAttribute('data-id');
+        this.domElements.forEach((e) => {
+            e.innerHTML = '';
+            e.style.pointerEvents = 'auto';
+            e.removeEventListener('drop', handleDrop);
+            e.removeEventListener('dragover', handleDragOver);
+            e.removeAttribute('data-id');
         });
     }
     render() {
         const randomizedArr = this.randomize();
         const category = this.category;
+
+        matchingItem.forEach((e) => {
+            e.addEventListener('drop', handleDrop);
+            e.addEventListener('dragover', handleDragOver);
+        });
+
         this.domElements.forEach((element, index) => {
-            element.style.backgroundImage = `url("assets/images/${category}/${randomizedArr[index]}.png")`;
+            if (category !== undefined) {
+                if (element.classList.contains('categoryItem')) {
+                    element.innerHTML = `<img class="categoryItemImage" src="assets/images/${category}/${randomizedArr[index]}.png" draggable="true" id="${category}${randomizedArr[index]}" data-id="${randomizedArr[index]}">`;
+                    
+                } else {
+                    element.style.pointerEvents = 'auto';
+                    element.innerHTML = `<div draggable="false" style="background-image: url('assets/images/${category}/${randomizedArr[index]}.png'); background-size:contain; opacity:0.2; height:100%; pointer-events:none; position:relative;"></div>`;
+                }
+            } 
             element.setAttribute('data-id', randomizedArr[index]);
         });
     }
@@ -101,118 +121,57 @@ class MatchingGame {
         this.categoryItemValue = null;
         this.matchingItemValue = null;
 
-        this.render();
-    }
-    displayClick(domWrapperEl) {
-        domWrapperEl.addEventListener('click', (e) => {
-            if (e.target.tagName.toLowerCase() === 'button' && e.target.hasAttribute('data-id')) {
-                const domWrapperElName = domWrapperEl.classList.value;
-                const listArray = [...domWrapperEl.children];
-                
-                let oppositeDomWrapperEl = null;
-                let oppositeDomWrapperElName = null;                
-                let oppositeListArray = null;
-
-                if (e.target.parentNode.classList.contains('categoryItems')) {
-                    oppositeDomWrapperEl = e.target.closest('.gameContainer').querySelector('.matchingItems');
-                    oppositeListArray = [...oppositeDomWrapperEl.children];
-                    oppositeDomWrapperElName = oppositeDomWrapperEl.classList.value;
-                } else {
-                    oppositeDomWrapperEl = e.target.closest('.gameContainer').querySelector('.categoryItems');
-                    oppositeListArray = [...oppositeDomWrapperEl.children];
-                    oppositeDomWrapperElName = oppositeDomWrapperEl.classList.value;
-                }
-
-                listArray.forEach(e => e.classList.remove('focusMatches', 'focusMatchesWrong'));
-                e.target.classList.add('focusMatches');
-
-                const dataId = e.target.getAttribute('data-id');
-
-                if (e.target.classList.contains('categoryItem')) {
-                    this.categoryItemValue = dataId;
-                } else {
-                    this.matchingItemValue = dataId;
-                }
-
-                if(this.categoryItemValue !== null && this.matchingItemValue !== null) {
-                    if(this.compareValues()) {
-                        this.categoryItemValue = null;
-                        this.matchingItemValue = null;
-                        e.target.classList.remove('focusMatches');
-                        e.target.classList.add('focusMatchesCorrect');
-
-                        oppositeListArray.forEach(e => {
-                            if (e.classList.contains('focusMatches') || e.classList.contains('focusMatchesWrong')) {
-                                e.classList.remove('focusMatches');
-                                e.classList.remove('focusMatchesWrong');
-                                e.classList.add('focusMatchesCorrect');
-                            }
-                        });
-                        
-                        if (domWrapperElName === "categoryItems") {
-                            listArray.forEach(e => {
-                                if (e.classList.contains('focusMatchesCorrect')) {
-                                    e.style.display = "none";
-                                    e.classList.remove('focusMatchesCorrect');
-                                }
-                            });
-                        } else if (oppositeDomWrapperElName === "categoryItems") {
-                            oppositeListArray.forEach(e => {
-                                if (e.classList.contains('focusMatchesCorrect')) {
-                                    e.style.display = "none";
-                                    e.classList.remove('focusMatchesCorrect');
-                                }
-                            });
-                        }
-                    } else {
-                        listArray.forEach(e => e.classList.remove('focusMatchesWrong'));
-                        e.target.classList.add('focusMatchesWrong');
-                        
-                        oppositeListArray.forEach(e => {
-                            if (e.classList.contains('focusMatches')) {
-                                e.classList.remove('focusMatches');
-                                e.classList.remove('focusMatchesCorrect');
-                                
-                                e.classList.add('focusMatchesWrong');
-                            }
-
-                            if (e.classList.contains('focusMatchesWrong')) {
-                                e.classList.remove('focusMatchesWrong');
-                                setTimeout(() => {
-                                    e.classList.add('focusMatchesWrong');
-                                }); 
-                            }
-                        });
-                    }
-                }
-            }
-        });
-    }
-    compareValues() {      
-        if (this.categoryItemValue === this.matchingItemValue 
-            && this.matchingItemValue === this.categoryItemValue) {
-            return true;
-        } else {
-            return false;
-        }
+        // this.render();
     }
     reset() {
         const categoryItemsArray = [...this.categoryItemsWrapperEl.children];
-        categoryItemsArray.forEach(e => e.classList.remove('focusMatches', 'focusMatchesWrong', 'focusMatchesCorrect'));
-        categoryItemsArray.forEach(e => e.style.display = "inline-block");
+        categoryItemsArray.forEach(e => e.style.display = 'inline-block');
         const matchingItemsArray = [...this.matchingItemsWrapperEl.children];
-        matchingItemsArray.forEach(e => e.classList.remove('focusMatches', 'focusMatchesWrong', 'focusMatchesCorrect'));
-
-    }
-    render() {
-        this.displayClick(this.categoryItemsWrapperEl);
-        this.displayClick(this.matchingItemsWrapperEl);
+        matchingItemsArray.forEach(e => e.classList.remove('focusMatchesCorrect'));
     }
 }
 
-categoryItemsWrapperEl.addEventListener('click', (e) => {
+let draggedItemParent = null;
 
-})
+function handleDragOver(e) {
+    e.preventDefault();
+    
+}
+  
+function handleDragStart(e) {
+    draggedItemParent = document.getElementById(e.target.id).parentElement;
+    this.style.opacity = '0.4';
+    e.dataTransfer.setData('text', e.target.id);
+}
+
+function handleDragEnd(e) {
+    this.style.opacity = '1';
+  }
+  
+function handleDrop(e) {
+    e.preventDefault();
+    const data = e.dataTransfer.getData('text');
+    let id = data.replace(/\D/g, '');
+
+    if (e.target.getAttribute('data-id') === id) {
+        e.target.appendChild(document.getElementById(data));
+        e.target.classList.add('focusMatchesCorrect');
+        draggedItemParent.style.display = 'none';
+        this.style.pointerEvents = 'none';
+        for (const child of this.children) {
+            child.style.pointerEvents = 'none';
+        }
+    } else {
+        e.target.classList.add('focusMatchesWrong');
+        setTimeout(function () { 
+            e.target.classList.remove('focusMatchesWrong');
+        }, 1000);
+    }
+}
+
+function handleMouseDown(e) {
+    window.getSelection().removeAllRanges();
+}
 
 initializeGame();
 
@@ -228,6 +187,12 @@ function resetCategories(buttons, domWrapperEl) {
 function initializeOptions(bottons, category) {
     if (category != null) {
         new Options(bottons, category);
+        categoryItemImage = document.querySelectorAll('.categoryItemImage');
+        categoryItemImage.forEach((e) => {
+            e.addEventListener('dragstart', handleDragStart);
+            e.addEventListener('dragend', handleDragEnd);
+            e.addEventListener('mousedown', handleMouseDown);
+        });
     } else {
         new Options(bottons, category).reset();
     }
