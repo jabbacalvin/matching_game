@@ -34,12 +34,12 @@ h1 {
     justify-content: center;
 }
 
-.categoryBtns {
+.category {
     padding: 1vmin;
     border-radius: 1.75vmin;
     font-size: 1.75vmin;
 }
-.categoryBtns:hover {
+.category:hover {
     font-size: 2vmin;
     font-weight: bold;
 }
@@ -67,10 +67,11 @@ h1 {
     grid-template-rows: repeat(5, 10vmin);
 }
 
-.itemBtns {
+.categoryItem {
     padding: 1vmin;
     border-radius: 3vmin;
     background-size: cover;
+    border: 1px solid black;
 }
 
 .separator {
@@ -87,10 +88,11 @@ h1 {
     grid-template-rows: repeat(3, 18vmin);
 }
 
-.matchingItemBtns {
+.matchingItem {
     padding: 1vmin;
     border-radius: 5vmin;
     background-size: cover;
+    border: 1px solid black;
 }
 
 .focusMatches {
