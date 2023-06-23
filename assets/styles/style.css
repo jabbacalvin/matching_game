@@ -5,7 +5,7 @@
 body {
     height: 100vh;
     margin: 0;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Acme', sans-serif;
     background-color: skyblue;
     display: flex;
     flex-direction: column;
@@ -15,12 +15,13 @@ body {
 
 header {
     font-size: 8vmin;
-    font-weight: bold;
+    font-weight: bolder;
     letter-spacing: 1vmin;
 }
 
 h1 {
     font-size: 2vmin;
+    font-weight: bold;
     letter-spacing: 1vmin;
     margin: 0;
 }
@@ -32,20 +33,22 @@ h1 {
     grid-template-rows: repeat(3, 5vmin);
     padding: 2vmin;
     justify-content: center;
+    border: 10px dashed black;
 }
 
 .category {
-    padding: 1vmin;
+    font-family: 'Acme', sans-serif;
     border-radius: 1.75vmin;
-    font-size: 1.75vmin;
+    font-size: 2vmin;
+    border: 10px solid black;
 }
 .category:hover {
-    font-size: 2vmin;
+    font-size: 2.5vmin;
     font-weight: bold;
 }
 
 .focusCategory {
-    font-size: 2vmin;
+    font-size: 2.5vmin;
     font-weight: bold;
     background-color: aquamarine;
 }
@@ -73,7 +76,7 @@ h1 {
     border-radius: 3vmin;
     background-size: cover;
     background-color: white;
-    border: 1px solid black;
+    border: 10px solid black;
     position: relative;
 }
 
@@ -109,7 +112,7 @@ img {
     border-radius: 5vmin;
     background-size: cover;
     background-color: white;
-    border: 1px solid black;
+    border: 10px solid black;
     position: relative;
 }
 
@@ -152,4 +155,5 @@ img {
     font-size: 2vmin;
     font-weight: bold;
     background-color: lightcoral;
+    border: 10px solid black;
 }

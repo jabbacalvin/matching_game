@@ -1,5 +1,8 @@
 let game;
 
+let count = 0; // count number of matches each game
+let draggedItemParent = null;
+
 const categoryWrapperEl = document.querySelector('.categories');
 const category = document.querySelectorAll('.category');
 const gameContainerWrapperEl = document.querySelector('.gameContainer');
@@ -9,14 +12,6 @@ let categoryItemImage = null;
 const matchingItemsWrapperEl = document.querySelector('.matchingItems');
 const matchingItem = document.querySelectorAll('.matchingItem');
 const resetBtn = document.querySelector('.resetBtn');
-
-// gameContainerWrapperEl.addEventListener('click', (e) => {
-//     if (e.target.tagName.toLowerCase() === 'div') {
-//         game.compareValues();
-//     }
-// });
-
-
 
 resetBtn.addEventListener('click', (e) => {
     resetGame();
@@ -131,8 +126,6 @@ class MatchingGame {
     }
 }
 
-let draggedItemParent = null;
-
 function handleDragOver(e) {
     e.preventDefault();
     
@@ -161,6 +154,7 @@ function handleDrop(e) {
         for (const child of this.children) {
             child.style.pointerEvents = 'none';
         }
+        count++;
     } else {
         e.target.classList.add('focusMatchesWrong');
         setTimeout(function () { 
@@ -199,6 +193,7 @@ function initializeOptions(bottons, category) {
 }
 
 function resetGame() {
+    count = 0;
     resetCategories(category, categoryWrapperEl);
     initializeOptions(categoryItem);
     initializeOptions(matchingItem);
