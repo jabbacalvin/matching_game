@@ -26,7 +26,7 @@ class Categories {
     static categoriesLookup = {
         '0': 'NUMBERS',
         '1': 'LETTERS',
-        '2': 'COLORS',
+        '2': 'FRUITS',
         '3': 'SHAPES',
         '4': 'ANIMALS',
         '5': 'TRANSPORTATIONS',
