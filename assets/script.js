@@ -2,6 +2,7 @@ let game;
 
 let count = 0; // count number of matches each game
 let draggedItemParent = null;
+let randomizedLetterArr = null;
 
 const categoryWrapperEl = document.querySelector('.categories');
 const categoryEl = document.querySelectorAll('.category');
@@ -64,8 +65,7 @@ class Options {
         this.category = category;
         this.render();
     }
-    randomize() {
-        const array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    randomize(array) {
         let currentIndex = array.length
         let randomIndex;
         while (currentIndex != 0) {
@@ -75,11 +75,12 @@ class Options {
         
             [array[currentIndex], array[randomIndex]] = [
                 array[randomIndex], array[currentIndex]];
-        }        
+        }
         return array;
     }
     reset() {
         const category = null;
+        randomizedLetterArr = null;
         this.domElements.forEach((e) => {
             e.innerHTML = '';
             e.style.pointerEvents = 'auto';
@@ -89,8 +90,20 @@ class Options {
         });
     }
     render() {
-        const randomizedArr = this.randomize();
+        let randomizedArr = [];
+        let array = [];
         const category = this.category;
+
+        if (category === "letters") {
+            array = Array.from({length: 26}, (_, i) => i + 1);
+            randomizedArr = this.randomize(array);
+            if (randomizedLetterArr === null) {
+                randomizedLetterArr = randomizedArr;
+            }
+        } else {
+            array = Array.from({length: 9}, (_, i) => i + 1);
+            randomizedArr = this.randomize(array);
+        }
 
         matchingItemEl.forEach((e) => {
             e.addEventListener('drop', handleDrop);
@@ -99,15 +112,27 @@ class Options {
 
         this.domElements.forEach((element, index) => {
             if (category !== undefined) {
-                if (element.classList.contains('categoryItem')) {
-                    element.innerHTML = `<img class="categoryItemImage" src="assets/images/${category}/${randomizedArr[index]}.png" draggable="true" id="${category}${randomizedArr[index]}" data-id="${randomizedArr[index]}">`;
-                    
+                if (category !== "letters") {
+                    if (element.classList.contains('categoryItem')) {
+                        element.innerHTML = `<img class="categoryItemImage" src="assets/images/${category}/${randomizedArr[index]}.png" draggable="true" id="${category}${randomizedArr[index]}" data-id="${randomizedArr[index]}">`;
+                        
+                    } else {
+                        element.style.pointerEvents = 'auto';
+                        element.innerHTML = `<div draggable="false" style="background-image: url('assets/images/${category}/${randomizedArr[index]}.png'); background-size:contain; opacity:0.2; height:100%; pointer-events:none; position:relative;"></div>`;
+                    }
+                    element.setAttribute('data-id', randomizedArr[index]);
                 } else {
-                    element.style.pointerEvents = 'auto';
-                    element.innerHTML = `<div draggable="false" style="background-image: url('assets/images/${category}/${randomizedArr[index]}.png'); background-size:contain; opacity:0.2; height:100%; pointer-events:none; position:relative;"></div>`;
+                    if (element.classList.contains('categoryItem')) {
+                        element.innerHTML = `<img class="categoryItemImage" src="assets/images/${category}/${randomizedLetterArr[index]}.png" draggable="true" id="${category}${randomizedLetterArr[index]}" data-id="${randomizedLetterArr[index]}">`;
+                        
+                    } else {
+                        element.style.pointerEvents = 'auto';
+                        element.innerHTML = `<div draggable="false" style="background-image: url('assets/images/${category}/${randomizedLetterArr[index]}.png'); background-size:contain; opacity:0.2; height:100%; pointer-events:none; position:relative;"></div>`;
+                    }
+                    element.setAttribute('data-id', randomizedLetterArr[index]);
                 }
             } 
-            element.setAttribute('data-id', randomizedArr[index]);
+            
         });
     }
 }
