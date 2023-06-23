@@ -33,14 +33,14 @@ h1 {
     grid-template-rows: repeat(3, 5vmin);
     padding: 2vmin;
     justify-content: center;
-    border: 10px dashed black;
+    border: 0.6vmin dashed black;
 }
 
 .category {
     font-family: 'Acme', sans-serif;
     border-radius: 1.75vmin;
     font-size: 2vmin;
-    border: 10px solid black;
+    border: 0.4vmin solid black;
 }
 .category:hover {
     font-size: 2.5vmin;
@@ -59,8 +59,30 @@ h1 {
     gap: 2.5vmin;
     padding: 1.5vmin;
     grid-template-areas: 
-    "categoryItems separator matchingItems"
-    ". . footer";
+    ". gameBoard"
+    ". footer";
+}
+
+.gameBoardContainer {
+    grid-area: gameBoard;
+    display: grid;
+    justify-content: center;
+    gap: 2.5vmin;
+    grid-template-areas: 
+    "categoryItems separator matchingItems";
+}
+
+#won {
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 3vmin;
+}
+
+#wonMessage {
+    font-size: 18vmin;
+    word-wrap: break-word;
+    color: white;
 }
 
 .categoryItems {
@@ -76,7 +98,7 @@ h1 {
     border-radius: 3vmin;
     background-size: cover;
     background-color: white;
-    border: 10px solid black;
+    border: 0.4vmin solid black;
     position: relative;
 }
 
@@ -95,7 +117,7 @@ img {
 
 .separator {
     grid-area: separator;
-    border-left: 0.4vmin solid black;
+    border-left: 0.6vmin solid black;
     height: 56vmin;
 }
 
@@ -112,7 +134,7 @@ img {
     border-radius: 5vmin;
     background-size: cover;
     background-color: white;
-    border: 10px solid black;
+    border: 0.4vmin solid black;
     position: relative;
 }
 
@@ -155,5 +177,5 @@ img {
     font-size: 2vmin;
     font-weight: bold;
     background-color: lightcoral;
-    border: 10px solid black;
+    border: 0.4vmin solid black;
 }

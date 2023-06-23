@@ -4,13 +4,16 @@ let count = 0; // count number of matches each game
 let draggedItemParent = null;
 
 const categoryWrapperEl = document.querySelector('.categories');
-const category = document.querySelectorAll('.category');
+const categoryEl = document.querySelectorAll('.category');
 const gameContainerWrapperEl = document.querySelector('.gameContainer');
+const gameBoardContainerWrapperEl = document.querySelector('.gameBoardContainer');
+const winningMessageWrapperEl = document.getElementById('won');
+const winningMessageEl = document.getElementById('wonMessage');
 const categoryItemsWrapperEl = document.querySelector('.categoryItems');
-const categoryItem = document.querySelectorAll('.categoryItem');
-let categoryItemImage = null;
+const categoryItemEl = document.querySelectorAll('.categoryItem');
+let categoryItemImageEl = null;
 const matchingItemsWrapperEl = document.querySelector('.matchingItems');
-const matchingItem = document.querySelectorAll('.matchingItem');
+const matchingItemEl = document.querySelectorAll('.matchingItem');
 const resetBtn = document.querySelector('.resetBtn');
 
 resetBtn.addEventListener('click', (e) => {
@@ -31,22 +34,22 @@ class Categories {
     }
     constructor(domElements, domWrapperEl) {
         this.domElements = domElements;
-        this.render();
         this.domWrapperEl = domWrapperEl;
         this.domWrapperEl.addEventListener('click', (e) => {
             if (e.target.tagName.toLowerCase() === 'button') {
                 resetGame();
                 this.category = e.target.innerText.toLowerCase();
-                category.forEach(e => e.classList.remove('focusCategory'));
+                categoryEl.forEach(e => e.classList.remove('focusCategory'));
                 e.target.classList.toggle('focusCategory');
 
-                initializeOptions(categoryItem, this.category);
-                initializeOptions(matchingItem, this.category);
+                initializeOptions(categoryItemEl, this.category);
+                initializeOptions(matchingItemEl, this.category);
             }
         });
+        this.render();
     }
     reset() {
-        category.forEach(e => e.classList.remove('focusCategory'));
+        categoryEl.forEach(e => e.classList.remove('focusCategory'));
     }
     render() {
         this.domElements.forEach((element, index) => {
@@ -89,7 +92,7 @@ class Options {
         const randomizedArr = this.randomize();
         const category = this.category;
 
-        matchingItem.forEach((e) => {
+        matchingItemEl.forEach((e) => {
             e.addEventListener('drop', handleDrop);
             e.addEventListener('dragover', handleDragOver);
         });
@@ -157,9 +160,19 @@ function handleDrop(e) {
         count++;
     } else {
         e.target.classList.add('focusMatchesWrong');
-        setTimeout(function () { 
+        setTimeout(() => { 
             e.target.classList.remove('focusMatchesWrong');
         }, 1000);
+    }
+
+    if (count === 9) {
+        const winningMessage = ["YOU WIN!!", "YAY!!", "WOOHOO!", "YOU DID IT!", "GOOD JOB!"];
+        const random = Math.floor(Math.random() * winningMessage.length);
+        winningMessageEl.innerText = winningMessage[random];
+        winningMessageWrapperEl.style.display = 'block';
+        setTimeout(() => {
+            winningMessageWrapperEl.style.display = 'none';
+        }, 1500);
     }
 }
 
@@ -170,7 +183,7 @@ function handleMouseDown(e) {
 initializeGame();
 
 function initializeGame() {
-    const categories = new Categories(category, categoryWrapperEl);
+    const categories = new Categories(categoryEl, categoryWrapperEl);
     game = new MatchingGame(categoryItemsWrapperEl, matchingItemsWrapperEl);
 }
 
@@ -181,8 +194,8 @@ function resetCategories(buttons, domWrapperEl) {
 function initializeOptions(bottons, category) {
     if (category != null) {
         new Options(bottons, category);
-        categoryItemImage = document.querySelectorAll('.categoryItemImage');
-        categoryItemImage.forEach((e) => {
+        categoryItemImageEl = document.querySelectorAll('.categoryItemImage');
+        categoryItemImageEl.forEach((e) => {
             e.addEventListener('dragstart', handleDragStart);
             e.addEventListener('dragend', handleDragEnd);
             e.addEventListener('mousedown', handleMouseDown);
@@ -194,8 +207,8 @@ function initializeOptions(bottons, category) {
 
 function resetGame() {
     count = 0;
-    resetCategories(category, categoryWrapperEl);
-    initializeOptions(categoryItem);
-    initializeOptions(matchingItem);
+    resetCategories(categoryEl, categoryWrapperEl);
+    initializeOptions(categoryItemEl);
+    initializeOptions(matchingItemEl);
     game.reset();
 }
