@@ -1,8 +1,8 @@
 let game;
 
 let count = 0; // count number of matches each game
-let draggedItemParent = null;
-let randomizedLetterArr = null;
+let draggedItemParent;
+let randomizedLetterArr;
 
 const categoryWrapperEl = document.querySelector('.categories');
 const categoryEl = document.querySelectorAll('.category');
@@ -12,12 +12,13 @@ const winningMessageWrapperEl = document.getElementById('won');
 const winningMessageEl = document.getElementById('wonMessage');
 const categoryItemsWrapperEl = document.querySelector('.categoryItems');
 const categoryItemEl = document.querySelectorAll('.categoryItem');
-let categoryItemImageEl = null;
+let categoryItemImageEl;
 const matchingItemsWrapperEl = document.querySelector('.matchingItems');
 const matchingItemEl = document.querySelectorAll('.matchingItem');
 const resetBtn = document.querySelector('.resetBtn');
 
 resetBtn.addEventListener('click', (e) => {
+    location.reload(); // a hack for reloading page, will remove once optimization is done
     resetGame();
 });
 
@@ -93,8 +94,8 @@ class Options {
         });
     }
     render() {
-        let randomizedArr = [];
-        let array = [];
+        let randomizedArr;
+        let array;
         const category = this.category;
 
         if (category === "letters") {
@@ -217,9 +218,9 @@ function resetCategories(buttons, domWrapperEl) {
 }
 
 function initializeOptions(buttons, category) {
-    
+    const options = new Options(buttons, category);
     if (category != null) {
-        const options = new Options(buttons, category);
+        options;
         categoryItemImageEl = document.querySelectorAll('.categoryItemImage');
         categoryItemImageEl.forEach((e) => {
             e.addEventListener('dragstart', handleDragStart);
@@ -227,7 +228,7 @@ function initializeOptions(buttons, category) {
             e.addEventListener('mousedown', handleMouseDown);
         });
     } else {
-        new Options(buttons, category).reset();
+        options.reset();
     }
 }
 
