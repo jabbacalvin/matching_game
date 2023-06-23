@@ -86,6 +86,9 @@ class Options {
             e.style.pointerEvents = 'auto';
             e.removeEventListener('drop', handleDrop);
             e.removeEventListener('dragover', handleDragOver);
+            e.removeEventListener('dragstart', handleDragStart);
+            e.removeEventListener('dragend', handleDragEnd);
+            e.removeEventListener('mousedown', handleMouseDown);
             e.removeAttribute('data-id');
         });
     }
@@ -132,7 +135,6 @@ class Options {
                     element.setAttribute('data-id', randomizedLetterArr[index]);
                 }
             } 
-            
         });
     }
 }
@@ -143,8 +145,6 @@ class MatchingGame {
         this.matchingItemsWrapperEl = matchingItemsWrapperEl;
         this.categoryItemValue = null;
         this.matchingItemValue = null;
-
-        // this.render();
     }
     reset() {
         const categoryItemsArray = [...this.categoryItemsWrapperEl.children];
@@ -216,9 +216,10 @@ function resetCategories(buttons, domWrapperEl) {
     new Categories(buttons, domWrapperEl).reset();
 }
 
-function initializeOptions(bottons, category) {
+function initializeOptions(buttons, category) {
+    
     if (category != null) {
-        new Options(bottons, category);
+        const options = new Options(buttons, category);
         categoryItemImageEl = document.querySelectorAll('.categoryItemImage');
         categoryItemImageEl.forEach((e) => {
             e.addEventListener('dragstart', handleDragStart);
@@ -226,7 +227,7 @@ function initializeOptions(bottons, category) {
             e.addEventListener('mousedown', handleMouseDown);
         });
     } else {
-        new Options(bottons, category).reset();
+        new Options(buttons, category).reset();
     }
 }
 
