@@ -1,9 +1,10 @@
 let game;
 
 let count = 0; // count number of matches each game
-let draggedItemParent;
 let randomizedAlphabetsArr;
 let curCategory;
+let draggedItemId;
+let draggedItemParent;
 
 const headerEl = document.querySelector('header');
 const categoryWrapperEl = document.querySelector('.categories');
@@ -198,7 +199,8 @@ function handleDragLeave(e) {
 function handleDragStart(e) {
     draggedItemParent = document.getElementById(e.target.id).parentElement;
     this.style.opacity = '0.4';
-    e.dataTransfer.setData('text', e.target.id);
+    // e.dataTransfer.setData('text', e.target.id);
+    draggedItemId = e.target.id;
 }
 
 function handleDragEnd(e) {
@@ -207,7 +209,8 @@ function handleDragEnd(e) {
   
 function handleDrop(e) {
     e.preventDefault();
-    const data = e.dataTransfer.getData('text');
+    // const data = e.dataTransfer.getData('text');
+    const data = draggedItemId;
     let id = data.replace(/\D/g, '');
 
     if (e.target.getAttribute('data-id') === id) {
