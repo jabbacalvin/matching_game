@@ -3,6 +3,7 @@ let game;
 let count = 0; // count number of matches each game
 let draggedItemParent;
 let randomizedAlphabetsArr;
+let curCategory;
 
 const headerEl = document.querySelector('header');
 const categoryWrapperEl = document.querySelector('.categories');
@@ -20,7 +21,7 @@ const audioEl = document.getElementById('myAudio');
 const resetBtn = document.querySelector('.resetBtn');
 
 resetBtn.addEventListener('click', (e) => {
-    location.reload(); // a hack for reloading page, will remove once optimization is done
+    // location.reload(); // a hack for reloading page, will remove once optimization is done
     resetGame();
 });
 
@@ -42,7 +43,13 @@ class Categories {
         this.domWrapperEl.addEventListener('click', (e) => {
             if (e.target.tagName.toLowerCase() === 'button') {
                 resetGame();
-                this.category = e.target.innerText.toLowerCase();
+                
+                curCategory = e.target.innerText.toLowerCase();
+                this.category = curCategory;
+
+                myAudio.volume = '0.2';
+                myAudio.src = `assets/sounds/${this.category}.mp3`;
+
                 categoryEl.forEach(e => e.classList.remove('focusCategory'));
                 e.target.classList.toggle('focusCategory');
 
@@ -106,10 +113,7 @@ class Options {
         let randomizedArr;
         let array;
         const category = this.category;
-
-        myAudio.volume = '0.2';
-        myAudio.src = `assets/sounds/${category}.mp3`;
-
+        
         if (category === "alphabets") {
             array = Array.from({length: 26}, (_, i) => i + 1);
             randomizedArr = this.randomize(array);
@@ -165,7 +169,7 @@ class MatchingGame {
         const categoryItemsArray = [...this.categoryItemsWrapperEl.children];
         categoryItemsArray.forEach(e => e.style.display = 'inline-block');
         const matchingItemsArray = [...this.matchingItemsWrapperEl.children];
-        matchingItemsArray.forEach(e => e.classList.remove('focusMatchesCorrect'));
+        matchingItemsArray.forEach(e => e.classList.remove('focusMatchesCorrect', 'focusMatches'));
     }
 }
 
@@ -266,8 +270,9 @@ function initializeOptions(buttons, category) {
 function resetGame() {
     gameContainerWrapperEl.style.visibility = 'visible';
     count = 0;
-    resetCategories(categoryEl, categoryWrapperEl);
-    initializeOptions(categoryItemEl);
-    initializeOptions(matchingItemEl);
+    randomizedAlphabetsArr = null;
+    // resetCategories(categoryEl, categoryWrapperEl);
+    initializeOptions(categoryItemEl, curCategory);
+    initializeOptions(matchingItemEl, curCategory);
     game.reset();
 }
