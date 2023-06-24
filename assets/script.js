@@ -22,7 +22,6 @@ const audioEl = document.getElementById('myAudio');
 const resetBtn = document.querySelector('.resetBtn');
 
 resetBtn.addEventListener('click', (e) => {
-    // location.reload(); // a hack for reloading page, will remove once optimization is done
     resetGame();
 });
 
@@ -231,7 +230,7 @@ function handleDrop(e) {
 
     if (count === 9) {
         const winningMessage = ["YOU WIN!!", "YAY!!", "WOOHOO!", "YOU DID IT!", "GOOD JOB!"];
-        // add clapping sound
+        // TODO: add clapping sound
         const random = Math.floor(Math.random() * winningMessage.length);
         messageEl.innerHTML = `<span id="winningMessage">${winningMessage[random]}</span>`;
         popupWrapperEl.style.display = 'block';
