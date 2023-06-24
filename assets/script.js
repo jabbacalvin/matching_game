@@ -10,8 +10,8 @@ const categoryWrapperEl = document.querySelector('.categories');
 const categoryEl = document.querySelectorAll('.category');
 const gameContainerWrapperEl = document.querySelector('.gameContainer');
 const gameBoardContainerWrapperEl = document.querySelector('.gameBoardContainer');
-const winningMessageWrapperEl = document.getElementById('won');
-const winningMessageEl = document.getElementById('wonMessage');
+const popupWrapperEl = document.getElementById('popup');
+const messageEl = document.getElementById('message');
 const categoryItemsWrapperEl = document.querySelector('.categoryItems');
 const categoryItemEl = document.querySelectorAll('.categoryItem');
 let categoryItemImageEl;
@@ -43,6 +43,8 @@ class Categories {
         this.domWrapperEl.addEventListener('click', (e) => {
             if (e.target.tagName.toLowerCase() === 'button') {
                 resetGame();
+
+
                 
                 curCategory = e.target.innerText.toLowerCase();
                 this.category = curCategory;
@@ -92,7 +94,7 @@ class Options {
         }
         return array;
     }
-    reset() {
+    initialize() {
         const category = null;
         randomizedAlphabetsArr = null;
         this.domElements.forEach((e) => {
@@ -228,10 +230,10 @@ function handleDrop(e) {
         const winningMessage = ["YOU WIN!!", "YAY!!", "WOOHOO!", "YOU DID IT!", "GOOD JOB!"];
         // add clapping sound
         const random = Math.floor(Math.random() * winningMessage.length);
-        winningMessageEl.innerText = winningMessage[random];
-        winningMessageWrapperEl.style.display = 'block';
+        messageEl.innerHTML = `<span id="winningMessage">${winningMessage[random]}</span>`;
+        popupWrapperEl.style.display = 'block';
         setTimeout(() => {
-            winningMessageWrapperEl.style.display = 'none';
+            popupWrapperEl.style.display = 'none';
         }, 1500);
     }
 }
@@ -263,12 +265,19 @@ function initializeOptions(buttons, category) {
             e.addEventListener('mousedown', handleMouseDown);
         });
     } else {
-        options.reset();
+        options.initialize();
     }
 }
 
 function resetGame() {
     gameContainerWrapperEl.style.visibility = 'visible';
+
+    messageEl.innerHTML = '<span id="introMessage">Drag & Drop</span><br/><br/><img id="arrow" src="assets/images/arrow.png"">';
+    popupWrapperEl.style.display = 'block';
+    setTimeout(() => {
+        popupWrapperEl.style.display = 'none';
+    }, 1500);
+
     count = 0;
     randomizedAlphabetsArr = null;
     // resetCategories(categoryEl, categoryWrapperEl);
