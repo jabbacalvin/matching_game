@@ -221,7 +221,7 @@ function handleDrop(e) {
         }
         count++;
     } else {
-        let oof = new Audio('/assets/sounds/oof.mp3');
+        let oof = new Audio('assets/sounds/oof.mp3');
         oof.volume = 0.2;
         oof.play();
         e.target.classList.add('focusMatchesWrong');
@@ -232,7 +232,6 @@ function handleDrop(e) {
 
     if (count === 9) {
         const winningMessage = ["YOU WIN!!", "YAY!!", "WOOHOO!", "YOU DID IT!", "GOOD JOB!"];
-        // TODO: add clapping sound
         const random = Math.floor(Math.random() * winningMessage.length);
         messageEl.innerHTML = `<span id="winningMessage">${winningMessage[random]}</span>`;
         popupWrapperEl.style.display = 'block';
@@ -240,7 +239,7 @@ function handleDrop(e) {
             popupWrapperEl.style.display = 'none';
         }, 1500);
 
-        let clapping = new Audio('/assets/sounds/clapping.mp3');
+        let clapping = new Audio('assets/sounds/clapping.mp3');
         clapping.volume = 0.2;
         clapping.play();
     }
