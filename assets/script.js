@@ -22,7 +22,7 @@ const audioEl = document.getElementById('myAudio');
 const resetBtn = document.querySelector('.resetBtn');
 
 resetBtn.addEventListener('click', (e) => {
-    resetGame();
+    resetBoard(false);
 });
 
 class Categories {
@@ -36,16 +36,15 @@ class Categories {
         '6': 'BABY SHARK',
         '7': 'PINKFONG WONDERSTAR',
         '8': 'ELMO & FRIENDS'
+        // TODO: BLUEY, POKEMON
     }
     constructor(domElements, domWrapperEl) {
         this.domElements = domElements;
         this.domWrapperEl = domWrapperEl;
         this.domWrapperEl.addEventListener('click', (e) => {
             if (e.target.tagName.toLowerCase() === 'button') {
-                resetGame();
+                resetBoard(true);
 
-
-                
                 curCategory = e.target.innerText.toLowerCase();
                 this.category = curCategory;
 
@@ -222,6 +221,9 @@ function handleDrop(e) {
         }
         count++;
     } else {
+        let oof = new Audio('/assets/sounds/oof.mp3');
+        oof.volume = 0.2;
+        oof.play();
         e.target.classList.add('focusMatchesWrong');
         setTimeout(() => { 
             e.target.classList.remove('focusMatchesWrong');
@@ -237,6 +239,10 @@ function handleDrop(e) {
         setTimeout(() => {
             popupWrapperEl.style.display = 'none';
         }, 1500);
+
+        let clapping = new Audio('/assets/sounds/clapping.mp3');
+        clapping.volume = 0.2;
+        clapping.play();
     }
 }
 
@@ -271,14 +277,16 @@ function initializeOptions(buttons, category) {
     }
 }
 
-function resetGame() {
+function resetBoard(introMessage) {
     gameContainerWrapperEl.style.visibility = 'visible';
 
-    messageEl.innerHTML = '<span id="introMessage">Drag & Drop</span><br/><br/><img id="arrow" src="assets/images/arrow.png"">';
-    popupWrapperEl.style.display = 'block';
-    setTimeout(() => {
-        popupWrapperEl.style.display = 'none';
-    }, 1500);
+    if(introMessage) {
+        messageEl.innerHTML = '<span id="introMessage">Drag & Drop</span><br/><br/><img id="arrow" src="assets/images/arrow.png"">';
+        popupWrapperEl.style.display = 'block';
+        setTimeout(() => {
+            popupWrapperEl.style.display = 'none';
+        }, 1500);
+    }
 
     count = 0;
     randomizedAlphabetsArr = null;
