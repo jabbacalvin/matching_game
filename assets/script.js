@@ -2,6 +2,7 @@ let game;
 
 let count = 0; // count number of matches each game
 let randomizedAlphabetsArr;
+let randomizedBlueyArr;
 let curCategory;
 let draggedItemId;
 let draggedItemParent;
@@ -35,8 +36,9 @@ class Categories {
         '5': 'VEHICLES',
         '6': 'BABY SHARK',
         '7': 'PINKFONG WONDERSTAR',
-        '8': 'ELMO & FRIENDS'
-        // TODO: BLUEY, POKEMON
+        '8': 'ELMO & FRIENDS',
+        '9': 'BLUEY',
+        '10': 'POKÉMON'
     }
     constructor(domElements, domWrapperEl) {
         this.domElements = domElements;
@@ -96,6 +98,7 @@ class Options {
     initialize() {
         const category = null;
         randomizedAlphabetsArr = null;
+        randomizedBlueyArr = null;
         this.domElements.forEach((e) => {
             e.innerHTML = '';
             myAudio.innerHTML = 'Your browser does not support the audio element.';
@@ -121,6 +124,13 @@ class Options {
             if (randomizedAlphabetsArr === null) {
                 randomizedAlphabetsArr = randomizedArr;
             }
+        } 
+        else if (category === "bluey") {
+            array = Array.from({length: 37}, (_, i) => i + 1);
+            randomizedArr = this.randomize(array);
+            if (randomizedBlueyArr === null) {
+                randomizedBlueyArr = randomizedArr;
+            }
         } else {
             array = Array.from({length: 9}, (_, i) => i + 1);
             randomizedArr = this.randomize(array);
@@ -144,6 +154,15 @@ class Options {
                         element.innerHTML = `<div draggable="false" style="background-image: url('assets/images/${category}/${randomizedAlphabetsArr[index]}.png'); background-size:contain; opacity:0.2; height:100%; pointer-events:none; position:relative;"></div>`;
                     }
                     element.setAttribute('data-id', randomizedAlphabetsArr[index]);
+                } else if (category === "bluey") {
+                    if (element.classList.contains('categoryItem')) {
+                        element.innerHTML = `<img class="categoryItemImage" src="assets/images/${category}/${randomizedBlueyArr[index]}.png" draggable="true" id="${category}${randomizedBlueyArr[index]}" data-id="${randomizedBlueyArr[index]}">`;
+                        
+                    } else {
+                        element.style.pointerEvents = 'auto';
+                        element.innerHTML = `<div draggable="false" style="background-image: url('assets/images/${category}/${randomizedBlueyArr[index]}.png'); background-size:contain; opacity:0.2; height:100%; pointer-events:none; position:relative;"></div>`;
+                    }
+                    element.setAttribute('data-id', randomizedBlueyArr[index]);
                 } else {
                     if (element.classList.contains('categoryItem')) {
                         element.innerHTML = `<img class="categoryItemImage" src="assets/images/${category}/${randomizedArr[index]}.png" draggable="true" id="${category}${randomizedArr[index]}" data-id="${randomizedArr[index]}">`;
@@ -203,6 +222,7 @@ function handleDragStart(e) {
 
 function handleDragEnd(e) {
     this.style.opacity = '1';
+    this.style.transition = '1s';
   }
   
 function handleDrop(e) {
@@ -229,8 +249,13 @@ function handleDrop(e) {
         oof.play();
         e.target.classList.add('focusMatchesWrong');
         setTimeout(() => { 
+            e.target.classList.remove('focusMatches');
             e.target.classList.remove('focusMatchesWrong');
         }, 1000);
+    }
+
+    if (count === 1) {
+        resetBtn.innerText = 'Reset';
     }
 
     if (count === 9) {
@@ -290,8 +315,11 @@ function resetBoard(introMessage) {
         }, 1500);
     }
 
+    resetBtn.innerText = 'Shuffle';
+
     count = 0;
     randomizedAlphabetsArr = null;
+    randomizedBlueyArr = null;
     // resetCategories(categoryEl, categoryWrapperEl);
     initializeOptions(categoryItemEl, curCategory);
     initializeOptions(matchingItemEl, curCategory);
