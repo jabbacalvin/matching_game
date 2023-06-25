@@ -214,6 +214,9 @@ function handleDrop(e) {
     if (e.target.getAttribute('data-id') === id) {
         e.target.appendChild(document.getElementById(data));
         e.target.classList.add('focusMatchesCorrect');
+        let correct = new Audio('assets/sounds/correct.mp3');
+        correct.volume = 0.2;
+        correct.play();
         draggedItemParent.style.display = 'none';
         this.style.pointerEvents = 'none';
         for (const child of this.children) {
