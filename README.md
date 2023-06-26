@@ -1,6 +1,4 @@
-# matching_game
-
-## Matching Game
+# Matching Game
 
 **Game:** https://jabbacalvin56.github.io/matching_game/
 
