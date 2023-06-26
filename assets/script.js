@@ -9,9 +9,6 @@ let draggedItemParent;
 let autoplay = true;
 let loop = true;
 
-let correct = new Audio('assets/sounds/correct.mp3');
-let oof = new Audio('assets/sounds/oof.mp3');
-
 const headerEl = document.querySelector('header');
 const categoryWrapperEl = document.querySelector('.categories');
 const categoryEl = document.querySelectorAll('.category');
@@ -228,6 +225,7 @@ function handleDrop(e) {
     if (e.target.getAttribute('data-id') === id) {
         e.target.appendChild(document.getElementById(data));
         e.target.classList.add('focusMatchesCorrect');
+        let correct = new Audio('assets/sounds/correct.mp3');
         correct.volume = 0.2;
         correct.play();
         draggedItemParent.style.display = 'none';
@@ -237,6 +235,7 @@ function handleDrop(e) {
         }
         count++;
     } else {
+        let oof = new Audio('assets/sounds/oof.mp3');
         oof.volume = 0.2;
         oof.play();
         e.target.classList.add('focusMatchesWrong');
