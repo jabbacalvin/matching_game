@@ -2,8 +2,6 @@ let game;
 
 let count = 0; // count number of matches each game
 let randomizedArr;
-let randomizedAlphabetsArr;
-let randomizedBlueyArr;
 let curCategory;
 let curCategoryCount;
 let draggedItemId;
@@ -108,8 +106,6 @@ class Options {
     initialize() {
         const category = null;
         randomizedArrHolder = null;
-        // randomizedAlphabetsArr = null;
-        // randomizedBlueyArr = null;
         this.domElements.forEach((e) => {
             e.innerHTML = '';
             myAudio.innerHTML = 'Your browser does not support the audio element.';
@@ -320,8 +316,6 @@ function resetBoard(introMessage) {
 
     count = 0;
     randomizedArrHolder = null;
-    // randomizedAlphabetsArr = null;
-    // randomizedBlueyArr = null;
     // resetCategories(categoryEl, categoryWrapperEl);
     initializeOptions(categoryItemEl, curCategory, curCategoryCount);
     initializeOptions(matchingItemEl, curCategory, curCategoryCount);
