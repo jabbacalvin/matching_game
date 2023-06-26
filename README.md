@@ -103,4 +103,5 @@ Added sounds and hidden categories
 
 **Future Implementations:**
 - Toggle to turn on and off autoplay for background music
+- Mobile friendly
 - Clean up code
