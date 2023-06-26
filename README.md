@@ -51,3 +51,11 @@ Implemented drag and drop, the logic for showing the match is simpler
 
 **Third Iteration:**
 Added sounds and hidden categories
+
+---
+
+***Game Demo***
+
+![Starting Page](image.png)
+
+![After Category Selection](image-1.png)
