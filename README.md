@@ -58,28 +58,28 @@ Added sounds and hidden categories
 
 Starting Page:
 
-![Starting Page](assets/images/readme/image.png)
+![Starting Page](assets/images/readme/01.png)
 
 After Category Selection:
 
-![After Category Selection](assets/images/readme/image-1.png)
+![After Category Selection](assets/images/readme/02.png)
 
 After Category Selection - On Screen Instruction:
 
-![After Category Selection - On Screen Instruction:](assets/images/readme/image-6.png)
+![After Category Selection - On Screen Instruction:](assets/images/readme/03.png)
 
 Drag & Drop:
 
-![Drag & Drop](assets/images/readme/image-2.png)
+![Drag & Drop](assets/images/readme/04.png)
 
 Drag & Drop (Incorrect):
 
-![Drag & Drop (Incorrect)](assets/images/readme/image-4.png)
+![Drag & Drop (Incorrect)](assets/images/readme/05.png)
 
 Drag & Drop (Correct):
 
-![Drag & Drop (Correct)](assets/images/readme/image-5.png)
+![Drag & Drop (Correct)](assets/images/readme/06.png)
 
 Winning Message:
 
-![Winning Message:](assets/images/readme/image-7.png)
+![Winning Message:](assets/images/readme/07.png)
