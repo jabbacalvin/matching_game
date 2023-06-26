@@ -38,6 +38,7 @@ h1 {
     justify-content: center;
     background-color: rgba(87, 87, 87, 0.6);
     border: 0.6vmin solid;
+    border-radius: 1.75vmin;
     background-clip: padding-box;
     max-height: 21.2vmin;
     overflow-y: scroll;
