@@ -33,12 +33,13 @@ h1 {
     grid-template-columns: repeat(3, 30vmin);
     grid-template-rows: repeat(4, 5.4vmin);
     padding: 1vmin;
-    padding-bottom: 1.8vmin;
+    padding-top: 0.5vmin;
+    padding-bottom: 1.2vmin;
     justify-content: center;
     background-color: rgba(87, 87, 87, 0.6);
     border: 0.6vmin solid;
     background-clip: padding-box;
-    min-height: 21.8vmin;
+    max-height: 21.2vmin;
     overflow-y: scroll;
     scroll-behavior: smooth;
 }
