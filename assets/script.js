@@ -47,6 +47,9 @@ class Categories {
         this.domWrapperEl = domWrapperEl;
         this.domWrapperEl.addEventListener('click', (e) => {
             if (e.target.tagName.toLowerCase() === 'button') {
+                e.target.parentNode.querySelectorAll('button').forEach(e => e.style.pointerEvents = 'auto');
+                e.target.style.pointerEvents = 'none';
+
                 resetBoard(true);
 
                 curCategory = e.target.innerText.toLowerCase();
@@ -131,7 +134,6 @@ class Options {
                 array = Array.from({length: n}, (_, i) => i + 1);
                 randomizedArr = this.randomize(array);
                 randomizedArrHolder = randomizedArr;
-                console.log(randomizedArrHolder);
             }
             if (this.domElements[0].classList.contains('matchingItem')) {
                 randomizedArrHolder = this.randomize(randomizedArrHolder.slice(0, 9));
