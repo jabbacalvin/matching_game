@@ -2,11 +2,43 @@
 
 **Game:** https://jabbacalvin56.github.io/matching_game/
 
+***Game Demo***
+
+Starting Page:
+
+![Starting Page](assets/images/readme/01.png)
+
+After Category Selection:
+
+![After Category Selection](assets/images/readme/02.png)
+
+After Category Selection - On Screen Instruction:
+
+![After Category Selection - On Screen Instruction:](assets/images/readme/03.png)
+
+Drag & Drop:
+
+![Drag & Drop](assets/images/readme/04.png)
+
+Drag & Drop (Incorrect):
+
+![Drag & Drop (Incorrect)](assets/images/readme/05.png)
+
+Drag & Drop (Correct):
+
+![Drag & Drop (Correct)](assets/images/readme/06.png)
+
+Winning Message:
+
+![Winning Message:](assets/images/readme/07.png)
+
+---
+
 **Wireframe:** https://excalidraw.com/#json=_bSDFRq0PhNl0HT-HdtJr,FNNAyeblu0ElXVMUpX1NDw
 
 ---
 
-Pseudocode
+Pseudocode:
 - Have arrays of categories
     - each category consists of an object of the name and the image
         - ```e.g.
@@ -53,33 +85,3 @@ Implemented drag and drop, the logic for showing the match is simpler
 Added sounds and hidden categories
 
 ---
-
-***Game Demo***
-
-Starting Page:
-
-![Starting Page](assets/images/readme/01.png)
-
-After Category Selection:
-
-![After Category Selection](assets/images/readme/02.png)
-
-After Category Selection - On Screen Instruction:
-
-![After Category Selection - On Screen Instruction:](assets/images/readme/03.png)
-
-Drag & Drop:
-
-![Drag & Drop](assets/images/readme/04.png)
-
-Drag & Drop (Incorrect):
-
-![Drag & Drop (Incorrect)](assets/images/readme/05.png)
-
-Drag & Drop (Correct):
-
-![Drag & Drop (Correct)](assets/images/readme/06.png)
-
-Winning Message:
-
-![Winning Message:](assets/images/readme/07.png)
