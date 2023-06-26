@@ -40,7 +40,7 @@ class Categories {
         '7': {category: 'PINKFONG WONDERSTAR', count: 9},
         '8': {category: 'ELMO & FRIENDS', count: 9},
         '9': {category: 'BLUEY', count: 37},
-        '10': {category: 'POKÉMON', count: 9}
+        '10': {category: 'POKÉMON', count: 1010}
     }
     constructor(domElements, domWrapperEl, count) {
         this.domElements = domElements;
@@ -283,12 +283,23 @@ function initializeOptions(buttons, category, count) {
 }
 
 function fillImages(element, category, randomizedArrIndex) {
-    if (element.classList.contains('categoryItem')) {
-        element.innerHTML = `<img class="categoryItemImage" src="assets/images/${category}/${randomizedArrIndex}.png" draggable="true" id="${category}${randomizedArrIndex}" data-id="${randomizedArrIndex}">`;
-        
+    if (category === 'pokémon') {
+        randomizedArrIndex = randomizedArrIndex.toString().padStart(3, '0');
+        if (element.classList.contains('categoryItem')) {
+            element.innerHTML = `<img class="categoryItemImage" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full//${randomizedArrIndex}.png" draggable="true" id="${category}${randomizedArrIndex}" data-id="${randomizedArrIndex}">`;
+            
+        } else {
+            element.style.pointerEvents = 'auto';
+            element.innerHTML = `<div draggable="false" style="background-image: url('https://assets.pokemon.com/assets/cms2/img/pokedex/full/${randomizedArrIndex}.png'); background-size:contain; opacity:0.2; height:100%; pointer-events:none; position:relative;"></div>`;
+        }
     } else {
-        element.style.pointerEvents = 'auto';
-        element.innerHTML = `<div draggable="false" style="background-image: url('assets/images/${category}/${randomizedArrIndex}.png'); background-size:contain; opacity:0.2; height:100%; pointer-events:none; position:relative;"></div>`;
+        if (element.classList.contains('categoryItem')) {
+            element.innerHTML = `<img class="categoryItemImage" src="assets/images/${category}/${randomizedArrIndex}.png" draggable="true" id="${category}${randomizedArrIndex}" data-id="${randomizedArrIndex}">`;
+            
+        } else {
+            element.style.pointerEvents = 'auto';
+            element.innerHTML = `<div draggable="false" style="background-image: url('assets/images/${category}/${randomizedArrIndex}.png'); background-size:contain; opacity:0.2; height:100%; pointer-events:none; position:relative;"></div>`;
+        }
     }
     element.setAttribute('data-id', randomizedArrIndex);
 }
