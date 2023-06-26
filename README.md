@@ -94,3 +94,6 @@ Implemented drag and drop, the logic for showing the match is simpler
 Added sounds and hidden categories
 
 ---
+
+**Future Implementations:**
+- Toggle to turn on and off autoplay for background music
