@@ -1,9 +1,11 @@
 let game;
 
 let count = 0; // count number of matches each game
+let randomizedArr;
 let randomizedAlphabetsArr;
 let randomizedBlueyArr;
 let curCategory;
+let curCategoryCount;
 let draggedItemId;
 let draggedItemParent;
 
@@ -28,19 +30,19 @@ resetBtn.addEventListener('click', (e) => {
 
 class Categories {
     static categoriesLookup = {
-        '0': 'NUMBERS',
-        '1': 'ALPHABETS',
-        '2': 'FRUITS',
-        '3': 'SHAPES',
-        '4': 'ANIMALS',
-        '5': 'VEHICLES',
-        '6': 'BABY SHARK',
-        '7': 'PINKFONG WONDERSTAR',
-        '8': 'ELMO & FRIENDS',
-        '9': 'BLUEY',
-        '10': 'POKÉMON'
+        '0': {category: 'NUMBERS', count: 9},
+        '1': {category: 'ALPHABETS', count: 26},
+        '2': {category: 'FRUITS', count: 9},
+        '3': {category: 'SHAPES', count: 9},
+        '4': {category: 'ANIMALS', count: 9},
+        '5': {category: 'VEHICLES', count: 9},
+        '6': {category: 'BABY SHARK', count: 9},
+        '7': {category: 'PINKFONG WONDERSTAR', count: 9},
+        '8': {category: 'ELMO & FRIENDS', count: 9},
+        '9': {category: 'BLUEY', count: 37},
+        '10': {category: 'POKÉMON', count: 9}
     }
-    constructor(domElements, domWrapperEl) {
+    constructor(domElements, domWrapperEl, count) {
         this.domElements = domElements;
         this.domWrapperEl = domWrapperEl;
         this.domWrapperEl.addEventListener('click', (e) => {
@@ -48,7 +50,9 @@ class Categories {
                 resetBoard(true);
 
                 curCategory = e.target.innerText.toLowerCase();
+                curCategoryCount = e.target.getAttribute('data-count');
                 this.category = curCategory;
+                this.count = curCategoryCount;
 
                 myAudio.volume = '0.2';
                 myAudio.src = `assets/sounds/${this.category}.mp3`;
@@ -56,8 +60,8 @@ class Categories {
                 categoryEl.forEach(e => e.classList.remove('focusCategory'));
                 e.target.classList.toggle('focusCategory');
 
-                initializeOptions(categoryItemEl, this.category);
-                initializeOptions(matchingItemEl, this.category);
+                initializeOptions(categoryItemEl, this.category, this.count);
+                initializeOptions(matchingItemEl, this.category, this.count);
             }
         });
         this.render();
@@ -71,21 +75,23 @@ class Categories {
         headerEl.style.textShadow = '0.5vmin 0.5vmin 0.5vmin ' + rgb;
         categoryWrapperEl.style.borderColor = rgb;
         this.domElements.forEach((element, index) => {
-            element.innerText = Categories.categoriesLookup[index];
+            element.innerText = Categories.categoriesLookup[index].category;
+            element.setAttribute('data-count', Categories.categoriesLookup[index].count);
         });
     }
 }
 
 class Options {
-    constructor(domElements, category) {
+    constructor(domElements, category, count) {
         this.domElements = domElements;
         this.category = category;
+        this.count = count;
         this.render();
     }
     randomize(array) {
         let currentIndex = array.length
         let randomIndex;
-        while (currentIndex != 0) {
+        while (currentIndex !== 0) {
 
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex--;
@@ -97,8 +103,9 @@ class Options {
     }
     initialize() {
         const category = null;
-        randomizedAlphabetsArr = null;
-        randomizedBlueyArr = null;
+        randomizedArrHolder = null;
+        // randomizedAlphabetsArr = null;
+        // randomizedBlueyArr = null;
         this.domElements.forEach((e) => {
             e.innerHTML = '';
             myAudio.innerHTML = 'Your browser does not support the audio element.';
@@ -117,23 +124,18 @@ class Options {
         let randomizedArr;
         let array;
         const category = this.category;
-        
-        if (category === "alphabets") {
-            array = Array.from({length: 26}, (_, i) => i + 1);
-            randomizedArr = this.randomize(array);
-            if (randomizedAlphabetsArr === null) {
-                randomizedAlphabetsArr = randomizedArr;
+
+        const n = this.count;
+        if (n !== undefined) {
+            if(this.domElements[0].classList.contains('categoryItem')) {
+                array = Array.from({length: n}, (_, i) => i + 1);
+                randomizedArr = this.randomize(array);
+                randomizedArrHolder = randomizedArr;
+                console.log(randomizedArrHolder);
             }
-        } 
-        else if (category === "bluey") {
-            array = Array.from({length: 37}, (_, i) => i + 1);
-            randomizedArr = this.randomize(array);
-            if (randomizedBlueyArr === null) {
-                randomizedBlueyArr = randomizedArr;
+            if (this.domElements[0].classList.contains('matchingItem')) {
+                randomizedArrHolder = this.randomize(randomizedArrHolder.slice(0, 9));
             }
-        } else {
-            array = Array.from({length: 9}, (_, i) => i + 1);
-            randomizedArr = this.randomize(array);
         }
 
         matchingItemEl.forEach((e) => {
@@ -143,36 +145,10 @@ class Options {
             e.addEventListener('dragleave', handleDragLeave);
         });
 
+
         this.domElements.forEach((element, index) => {
-            if (category !== undefined) {
-                if (category === "alphabets") {
-                    if (element.classList.contains('categoryItem')) {
-                        element.innerHTML = `<img class="categoryItemImage" src="assets/images/${category}/${randomizedAlphabetsArr[index]}.png" draggable="true" id="${category}${randomizedAlphabetsArr[index]}" data-id="${randomizedAlphabetsArr[index]}">`;
-                        
-                    } else {
-                        element.style.pointerEvents = 'auto';
-                        element.innerHTML = `<div draggable="false" style="background-image: url('assets/images/${category}/${randomizedAlphabetsArr[index]}.png'); background-size:contain; opacity:0.2; height:100%; pointer-events:none; position:relative;"></div>`;
-                    }
-                    element.setAttribute('data-id', randomizedAlphabetsArr[index]);
-                } else if (category === "bluey") {
-                    if (element.classList.contains('categoryItem')) {
-                        element.innerHTML = `<img class="categoryItemImage" src="assets/images/${category}/${randomizedBlueyArr[index]}.png" draggable="true" id="${category}${randomizedBlueyArr[index]}" data-id="${randomizedBlueyArr[index]}">`;
-                        
-                    } else {
-                        element.style.pointerEvents = 'auto';
-                        element.innerHTML = `<div draggable="false" style="background-image: url('assets/images/${category}/${randomizedBlueyArr[index]}.png'); background-size:contain; opacity:0.2; height:100%; pointer-events:none; position:relative;"></div>`;
-                    }
-                    element.setAttribute('data-id', randomizedBlueyArr[index]);
-                } else {
-                    if (element.classList.contains('categoryItem')) {
-                        element.innerHTML = `<img class="categoryItemImage" src="assets/images/${category}/${randomizedArr[index]}.png" draggable="true" id="${category}${randomizedArr[index]}" data-id="${randomizedArr[index]}">`;
-                        
-                    } else {
-                        element.style.pointerEvents = 'auto';
-                        element.innerHTML = `<div draggable="false" style="background-image: url('assets/images/${category}/${randomizedArr[index]}.png'); background-size:contain; opacity:0.2; height:100%; pointer-events:none; position:relative;"></div>`;
-                    }
-                    element.setAttribute('data-id', randomizedArr[index]);
-                }
+            if (category !== undefined && count !== undefined) {
+                fillImages(element, category, randomizedArrHolder[index]);
             } 
         });
     }
@@ -289,9 +265,9 @@ function resetCategories(buttons, domWrapperEl) {
     new Categories(buttons, domWrapperEl).reset();
 }
 
-function initializeOptions(buttons, category) {
-    const options = new Options(buttons, category);
-    if (category != null) {
+function initializeOptions(buttons, category, count) {
+    const options = new Options(buttons, category, count);
+    if (category !== null && count !== null) {
         options;
         categoryItemImageEl = document.querySelectorAll('.categoryItemImage');
         categoryItemImageEl.forEach((e) => {
@@ -302,6 +278,17 @@ function initializeOptions(buttons, category) {
     } else {
         options.initialize();
     }
+}
+
+function fillImages(element, category, randomizedArrIndex) {
+    if (element.classList.contains('categoryItem')) {
+        element.innerHTML = `<img class="categoryItemImage" src="assets/images/${category}/${randomizedArrIndex}.png" draggable="true" id="${category}${randomizedArrIndex}" data-id="${randomizedArrIndex}">`;
+        
+    } else {
+        element.style.pointerEvents = 'auto';
+        element.innerHTML = `<div draggable="false" style="background-image: url('assets/images/${category}/${randomizedArrIndex}.png'); background-size:contain; opacity:0.2; height:100%; pointer-events:none; position:relative;"></div>`;
+    }
+    element.setAttribute('data-id', randomizedArrIndex);
 }
 
 function resetBoard(introMessage) {
@@ -318,10 +305,11 @@ function resetBoard(introMessage) {
     resetBtn.innerText = 'Shuffle';
 
     count = 0;
-    randomizedAlphabetsArr = null;
-    randomizedBlueyArr = null;
+    randomizedArrHolder = null;
+    // randomizedAlphabetsArr = null;
+    // randomizedBlueyArr = null;
     // resetCategories(categoryEl, categoryWrapperEl);
-    initializeOptions(categoryItemEl, curCategory);
-    initializeOptions(matchingItemEl, curCategory);
+    initializeOptions(categoryItemEl, curCategory, curCategoryCount);
+    initializeOptions(matchingItemEl, curCategory, curCategoryCount);
     game.reset();
 }
