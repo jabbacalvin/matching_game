@@ -233,7 +233,7 @@ img.categoryItemImage {
 }
 
 #myAudio {
-    width: 65vmin;
+    width: 55vmin;
     height: 75%;
     vertical-align: bottom;
     filter: drop-shadow(0.8vmin 0.8vmin 0 rgba(0, 0, 0, 0.4));
@@ -255,4 +255,82 @@ img.categoryItemImage {
     transform: translateY(0.5vmin);
     transition: 0.5s;
     cursor: pointer;
+}
+
+.label {
+    position: relative;
+    width: 10vmin;
+    height: 5vmin;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-right: 2vmin;
+    transform: translateY(0.75vmin);
+}
+
+.label:hover {
+    transition: 0.5s;
+    cursor: pointer;
+}
+  
+input {
+    display: none;
+}
+
+.background {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: transparent;
+    transition: background 0.4s;
+}
+
+.background:before
+{
+    content: "";
+    height: 70%;
+    width: 100%;
+    background-color: #6f6e6b;
+    position: absolute;
+    top: 16%;
+    border-radius: 2vmin;
+    z-index: 0;
+}
+
+.knob {
+    position: absolute;
+    top: 0;
+    left: -0.1vmin;
+    width: 5vmin;
+    height: 5vmin;
+    background: #d7d7d7;
+    transition: left 0.4s;
+    display: flex;
+    border-radius: 4vmin;
+    border: 0.2vmin solid rgba(0, 0, 0, 0.1);
+}
+
+.knob:after {
+    content: "";
+    display: block;
+    margin: auto;
+    box-sizing: border-box;
+    height: 1.6vmin;
+    width: 1.6vmin;
+    border-color: transparent transparent transparent black;
+    border-style: double;
+    border-width: 0 0 0 1.6vmin;
+}
+
+input:checked + .background .knob {
+    background: #f7f7f7;
+}
+
+input:checked + .background .knob:after {
+    border-style: solid;
+    border-width: 1vmin 0vmin 1vmin 1.6vmin;
+}
+
+input:checked + .background .knob {
+    left: 5.2vmin;
 }

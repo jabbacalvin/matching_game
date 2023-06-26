@@ -6,6 +6,8 @@ let curCategory;
 let curCategoryCount;
 let draggedItemId;
 let draggedItemParent;
+let autoplay = true;
+let loop = true;
 
 const headerEl = document.querySelector('header');
 const categoryWrapperEl = document.querySelector('.categories');
@@ -20,10 +22,24 @@ let categoryItemImageEl;
 const matchingItemsWrapperEl = document.querySelector('.matchingItems');
 const matchingItemEl = document.querySelectorAll('.matchingItem');
 const audioEl = document.getElementById('myAudio');
+const checkboxEl = document.getElementById('checkbox');
 const resetBtn = document.querySelector('.resetBtn');
 
 resetBtn.addEventListener('click', (e) => {
     resetBoard(false);
+});
+
+checkboxEl.checked = true;
+checkboxEl.addEventListener('click', (e) => {
+    if (checkboxEl.checked) {
+        autoplay = true;
+        loop = true;
+    } else {
+        autoplay = false;
+        loop = false;
+    }
+    audioEl.autoplay = autoplay;
+    audioEl.loop = loop;
 });
 
 class Categories {
