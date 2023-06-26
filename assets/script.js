@@ -227,6 +227,7 @@ function handleDrop(e) {
         e.target.classList.add('focusMatchesCorrect');
         let correct = new Audio('assets/sounds/correct.mp3');
         correct.volume = 0.2;
+        correct.load();
         correct.play();
         draggedItemParent.style.display = 'none';
         this.style.pointerEvents = 'none';
@@ -237,6 +238,7 @@ function handleDrop(e) {
     } else {
         let oof = new Audio('assets/sounds/oof.mp3');
         oof.volume = 0.2;
+        oof.load();
         oof.play();
         e.target.classList.add('focusMatchesWrong');
         setTimeout(() => { 
