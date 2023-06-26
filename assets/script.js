@@ -202,7 +202,7 @@ function handleDragStart(e) {
 function handleDragEnd(e) {
     this.style.opacity = '1';
     this.style.transition = '1s';
-  }
+}
   
 function handleDrop(e) {
     e.preventDefault();
