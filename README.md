@@ -44,13 +44,10 @@ Minimum Viable Product:
 ---
 
 **First Iteration:**
-
 Turns out the logic for the click matching was harder than the drag and drop matching
 
 **Second Iteration:**
-
 Implemented drag and drop, the logic for showing the match is simpler
 
 **Third Iteration:**
-
 Added sounds and hidden categories
