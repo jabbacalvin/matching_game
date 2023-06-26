@@ -226,6 +226,7 @@ function handleDrop(e) {
         e.target.appendChild(document.getElementById(data));
         e.target.classList.add('focusMatchesCorrect');
         let correct = new Audio('assets/sounds/correct.mp3');
+        correct.autoplay = true;
         correct.volume = 0.2;
         correct.play();
         draggedItemParent.style.display = 'none';
@@ -236,6 +237,7 @@ function handleDrop(e) {
         count++;
     } else {
         let oof = new Audio('assets/sounds/oof.mp3');
+        oof.autoplay = true;
         oof.volume = 0.2;
         oof.play();
         e.target.classList.add('focusMatchesWrong');
@@ -259,6 +261,7 @@ function handleDrop(e) {
         }, 1500);
 
         let clapping = new Audio('assets/sounds/clapping.mp3');
+        clapping.autoplay = true;
         clapping.volume = 0.2;
         clapping.play();
     }
