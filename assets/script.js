@@ -158,8 +158,6 @@ class Options {
             e.addEventListener('dragover', handleDragOver);
             e.addEventListener('dragenter', handleDragEnter);
             e.addEventListener('dragleave', handleDragLeave);
-            e.addEventListener('touchend', handleDrop);
-            e.addEventListener('touchleave', handleDrop);
         });
 
 
