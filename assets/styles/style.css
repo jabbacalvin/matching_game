@@ -34,7 +34,7 @@ h1 {
     grid-template-rows: repeat(4, 5.4vmin);
     padding: 1vmin;
     padding-top: 0.5vmin;
-    padding-bottom: 1.2vmin;
+    padding-bottom: 1.3vmin;
     justify-content: center;
     background-color: rgba(87, 87, 87, 0.6);
     border: 0.6vmin solid;

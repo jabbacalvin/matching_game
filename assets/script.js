@@ -40,7 +40,8 @@ class Categories {
         '7': {category: 'PINKFONG WONDERSTAR', count: 9},
         '8': {category: 'ELMO & FRIENDS', count: 9},
         '9': {category: 'BLUEY', count: 37},
-        '10': {category: 'POKÉMON', count: 1010}
+        '10': {category: 'POKÉMON', count: 1010},
+        '11': {category: 'PAW PATROL', count: 11}
     }
     constructor(domElements, domWrapperEl, count) {
         this.domElements = domElements;
