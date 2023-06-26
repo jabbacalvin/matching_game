@@ -6,6 +6,12 @@
 
 ---
 
+**Concept:**
+
+![Concept](assets/images/readme/concept.png)
+
+---
+
 ***Game Demo***
 
 Starting Page:
