@@ -226,7 +226,6 @@ function handleDrop(e) {
         e.target.appendChild(document.getElementById(data));
         e.target.classList.add('focusMatchesCorrect');
         let correct = new Audio('assets/sounds/correct.mp3');
-        console.log(correct);
         correct.volume = 0.2;
         correct.play();
         draggedItemParent.style.display = 'none';
