@@ -2,7 +2,9 @@
 
 ## Matching Game
 
-Wireframe: https://excalidraw.com/#json=_bSDFRq0PhNl0HT-HdtJr,FNNAyeblu0ElXVMUpX1NDw
+**Game:** https://jabbacalvin56.github.io/matching_game/
+
+**Wireframe:** https://excalidraw.com/#json=_bSDFRq0PhNl0HT-HdtJr,FNNAyeblu0ElXVMUpX1NDw
 
 ---
 
