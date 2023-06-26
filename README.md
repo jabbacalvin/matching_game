@@ -1,6 +1,10 @@
 # Matching Game
 
-**Game:** https://jabbacalvin56.github.io/matching_game/
+**Game:**
+
+ https://jabbacalvin56.github.io/matching_game/
+
+---
 
 ***Game Demo***
 
@@ -34,7 +38,9 @@ Winning Message:
 
 ---
 
-**Wireframe:** https://excalidraw.com/#json=_bSDFRq0PhNl0HT-HdtJr,FNNAyeblu0ElXVMUpX1NDw
+**Wireframe:** 
+
+https://excalidraw.com/#json=_bSDFRq0PhNl0HT-HdtJr,FNNAyeblu0ElXVMUpX1NDw
 
 ---
 
